@@ -1,9 +1,6 @@
 package com.gitbaby.board.repository;
 
-import com.gitbaby.board.projection.dto.BoardWithReplyDTO;
-import com.gitbaby.board.projection.dto.BoardWithWriterDTO;
-import com.gitbaby.board.projection.dto.BoardWithWriterDTOClass;
-import com.gitbaby.board.projection.dto.BoardWithWriterDTORecode;
+import com.gitbaby.board.projection.dto.*;
 import com.gitbaby.board.entity.Board;
 import com.gitbaby.board.entity.Member;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +9,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -81,4 +82,18 @@ public class BoardRepositoryTest {
     });
   }
 
+  @Test
+  public void testGetBoardWithReplyCount(){
+    Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC,"bno"));
+
+//    Page<Object[]> result = repository.getBoardWithReplyCount2(pageable);
+//    result.get().forEach(row -> {
+//      log.info(Arrays.toString(row));
+//    });
+
+    Page<BoardWithReplyCountDTO> dtos = repository.getBoardWithReplyCount(pageable);
+
+    dtos.stream().forEach(r -> {log.info(r.board()); log.info(r.member()); log.info(r.count());});
+
+  }
 }

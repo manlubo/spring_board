@@ -1,10 +1,9 @@
 package com.gitbaby.board.repository;
 
-import com.gitbaby.board.projection.dto.BoardWithReplyDTO;
-import com.gitbaby.board.projection.dto.BoardWithWriterDTO;
-import com.gitbaby.board.projection.dto.BoardWithWriterDTOClass;
-import com.gitbaby.board.projection.dto.BoardWithWriterDTORecode;
+import com.gitbaby.board.projection.dto.*;
 import com.gitbaby.board.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +23,14 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
   @Query("select b board, r reply from Board b left join Reply r on r.board = b where b.bno = :bno")
   List<BoardWithReplyDTO> getBoardWithReply(@Param("bno") Long bno);
 
+  @Query(value = "select b board, w as member, count(r) as count from Board b left join b.writer w " +
+          "left join Reply r on r.board = b group by b",
+          countQuery = "select count(b) from Board b")
+  Page<BoardWithReplyCountDTO> getBoardWithReplyCount(Pageable pageable);
+
+
+  @Query(value = "select b board, w as member, count(r) as count from Board b left join b.writer w " +
+          "left join Reply r on r.board = b where b.bno = :bno",
+          countQuery = "select count(b) from Board b")
+  BoardWithReplyCountDTO getBoardByBno(Long bno);
 }
