@@ -1,7 +1,7 @@
-package com.gitbaby.board.projection.dto;
+package com.gitbaby.board.domain.projection;
 
-import com.gitbaby.board.entity.Board;
-import com.gitbaby.board.entity.Member;
+import com.gitbaby.board.domain.entity.Board;
+import com.gitbaby.board.domain.entity.Member;
 import lombok.Getter;
 
 @Getter

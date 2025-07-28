@@ -1,8 +1,9 @@
 package com.gitbaby.board.repository;
 
-import com.gitbaby.board.projection.dto.*;
-import com.gitbaby.board.entity.Board;
-import com.gitbaby.board.entity.Member;
+
+import com.gitbaby.board.domain.entity.Board;
+import com.gitbaby.board.domain.entity.Member;
+import com.gitbaby.board.domain.projection.*;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -95,5 +96,19 @@ public class BoardRepositoryTest {
 
     dtos.stream().forEach(r -> {log.info(r.board()); log.info(r.member()); log.info(r.count());});
 
+  }
+
+  @Test
+  public void testSearch1(){
+    repository.search1();
+  }
+
+  @Test
+  @DisplayName("검색 테스트")
+  public void testSearchPage(){
+    Page<BoardWithReplyCountDTO> dwrc = repository.searchPage("tcw", "title", PageRequest.of(3, 10, Sort.by(Sort.Direction.DESC,"bno")));
+    log.info(dwrc.getTotalPages());
+    log.info(dwrc.getTotalElements());
+    dwrc.getContent().forEach(log::info);
   }
 }

@@ -1,4 +1,4 @@
-package com.gitbaby.board.dto;
+package com.gitbaby.board.domain.dto;
 
 import lombok.Getter;
 import lombok.ToString;

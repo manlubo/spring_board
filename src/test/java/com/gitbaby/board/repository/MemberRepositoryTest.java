@@ -1,6 +1,6 @@
 package com.gitbaby.board.repository;
 
-import com.gitbaby.board.entity.Member;
+import com.gitbaby.board.domain.entity.Member;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

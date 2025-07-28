@@ -1,4 +1,4 @@
-package com.gitbaby.board.dto;
+package com.gitbaby.board.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

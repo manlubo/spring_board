@@ -16,12 +16,12 @@
       </tr>
       <tr th:each="b: ${dto.list}">
         <th scope="row">[[${b.bno}]]</th>
-        <td><a th:href="@{'/guestbook/read' + ${requestDto.qs2} + ' &bno=' + ${b.bno}}">[[${b.title}]]</a><span class="text-danger small fw-bold"> &#91;[[${b.replyCount}]]&#93;</span></td>
+        <td><a th:href="@{'/board/read' + ${requestDto.qs2} + ' &bno=' + ${b.bno}}">[[${b.title}]]</a><span class="text-danger small fw-bold"> &#91;[[${b.replyCount}]]&#93;</span></td>
         <td th:text="${b.writerName}"></td>
         <td th:text="${#temporals.format(b.regDate,'yyyy/MM/dd HH:mm:ss')}"></td>
       </tr>
     </table>
-    <form action="/guestbook/list" method="get" class="my-3">
+    <form action="/board/list" method="get" class="my-3">
       <input type="hidden" name="page" th:value="1"/>
       <input type="hidden" name="size" th:value="${dto.size}"/>
       <div class="input-group">

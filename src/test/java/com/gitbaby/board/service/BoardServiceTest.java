@@ -1,7 +1,7 @@
 package com.gitbaby.board.service;
 
-import com.gitbaby.board.dto.PageRequestDTO;
-import com.gitbaby.board.dto.BoardDTO;
+import com.gitbaby.board.domain.dto.PageRequestDTO;
+import com.gitbaby.board.domain.dto.BoardDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

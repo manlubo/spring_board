@@ -1,11 +1,11 @@
 package com.gitbaby.board.service;
 
-import com.gitbaby.board.dto.PageRequestDTO;
-import com.gitbaby.board.dto.PageResponseDTO;
-import com.gitbaby.board.entity.Board;
-import com.gitbaby.board.entity.Member;
-import com.gitbaby.board.dto.BoardDTO;
-import com.gitbaby.board.projection.dto.BoardWithReplyCountDTO;
+import com.gitbaby.board.domain.dto.PageRequestDTO;
+import com.gitbaby.board.domain.dto.PageResponseDTO;
+import com.gitbaby.board.domain.entity.Board;
+import com.gitbaby.board.domain.entity.Member;
+import com.gitbaby.board.domain.dto.BoardDTO;
+import com.gitbaby.board.domain.projection.BoardWithReplyCountDTO;
 
 public interface BoardService {
   Long register(BoardDTO boardDTO);

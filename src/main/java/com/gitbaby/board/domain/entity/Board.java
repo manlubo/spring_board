@@ -1,4 +1,4 @@
-package com.gitbaby.board.entity;
+package com.gitbaby.board.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

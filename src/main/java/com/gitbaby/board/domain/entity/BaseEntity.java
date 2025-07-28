@@ -1,8 +1,9 @@
-package com.gitbaby.board.entity;
+package com.gitbaby.board.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
+@EqualsAndHashCode(exclude = "modDate")
 public class BaseEntity {
   @CreatedDate
   @Column(updatable = false, name = "regdate")

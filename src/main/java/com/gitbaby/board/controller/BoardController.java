@@ -1,9 +1,7 @@
 package com.gitbaby.board.controller;
 
-import com.gitbaby.board.dto.BoardDTO;
-import com.gitbaby.board.dto.PageRequestDTO;
-import com.gitbaby.board.entity.Board;
-import com.gitbaby.board.projection.dto.BoardWithReplyCountDTO;
+import com.gitbaby.board.domain.dto.BoardDTO;
+import com.gitbaby.board.domain.dto.PageRequestDTO;
 import com.gitbaby.board.service.BoardService;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -41,5 +39,35 @@ public class BoardController {
   @GetMapping("list")
   public void list(@ModelAttribute("requestDto") PageRequestDTO dto, Model model){
     model.addAttribute("dto", service.getList(dto));
+  }
+
+  @GetMapping("read")
+  public void read(Long bno, Model model,@ModelAttribute("requestDto") PageRequestDTO pageDto){
+    model.addAttribute("dto", service.get(bno));
+  }
+
+  @GetMapping("modify")
+  public void modify(Long bno, Model model, @ModelAttribute("requestDto") PageRequestDTO pageDto){
+    model.addAttribute("dto", service.get(bno));
+  }
+
+  @PostMapping("modify")
+  public String modify(BoardDTO boardDto, PageRequestDTO dto, RedirectAttributes rttr){
+    service.modify(boardDto);
+    rttr.addAttribute("bno",  boardDto.getBno());
+    rttr.addFlashAttribute("page", dto.getPage());
+    rttr.addFlashAttribute("size", dto.getSize());
+    rttr.addAttribute("type", dto.getType());
+    rttr.addAttribute("keyword", dto.getKeyword());
+    return "redirect:read";
+  }
+
+  @PostMapping("remove")
+  public String remove(PageRequestDTO dto, Long bno, RedirectAttributes rttr){
+    service.remove(bno);
+    rttr.addFlashAttribute("msg", bno);
+    rttr.addFlashAttribute("size", dto.getSize());
+    rttr.addAttribute("page", 1);
+    return "redirect:list";
   }
 }

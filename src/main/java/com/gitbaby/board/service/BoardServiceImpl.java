@@ -1,14 +1,13 @@
 package com.gitbaby.board.service;
 
-import com.gitbaby.board.dto.PageRequestDTO;
-import com.gitbaby.board.dto.PageResponseDTO;
-import com.gitbaby.board.dto.BoardDTO;
-import com.gitbaby.board.entity.Board;
-import com.gitbaby.board.projection.dto.BoardWithReplyCountDTO;
+import com.gitbaby.board.domain.dto.PageRequestDTO;
+import com.gitbaby.board.domain.dto.PageResponseDTO;
+import com.gitbaby.board.domain.dto.BoardDTO;
+import com.gitbaby.board.domain.entity.Board;
+import com.gitbaby.board.domain.projection.BoardWithReplyCountDTO;
 import com.gitbaby.board.repository.BoardRepository;
 import com.gitbaby.board.repository.ReplyRepository;
 import lombok.Data;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class BoardServiceImpl implements  BoardService {
   @Override
   public PageResponseDTO<BoardDTO, BoardWithReplyCountDTO> getList(PageRequestDTO pageRequestDTO) {
     Function<BoardWithReplyCountDTO, BoardDTO> mapper = bwrc -> toDTO(bwrc.board(), bwrc.member(), bwrc.count());
-    return new PageResponseDTO<>(boardRepository.getBoardWithReplyCount(PageRequest.of(pageRequestDTO.getPage() - 1, 10, Sort.by(Sort.Direction.DESC,"bno")))
+    return new PageResponseDTO<>(boardRepository.searchPage(pageRequestDTO.getType(), pageRequestDTO.getKeyword(), pageRequestDTO.getPageable(Sort.by(Sort.Direction.DESC, "bno")))
             , mapper);
   }
 

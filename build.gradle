@@ -59,6 +59,11 @@ dependencies {
 
   // Jakarta 어노테이션 API (Q클래스 생성 시 필요)
   annotationProcessor 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+
+
+  implementation 'org.mapstruct:mapstruct:1.6.3' // DTO ↔ Entity 간 변환 코드를 자동 생성
+  annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+  annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0' // 맵 스트럭트가 롬복과 충돌 방지
 }
 
 configurations {
@@ -77,16 +82,12 @@ tasks.named('test') {
 
 
 
-def generated = layout.buildDirectory.dir("generated/querydsl").get().asFile;
-
 sourceSets {
   main {
     java {
-      srcDirs += [generated]
+      srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
     }
   }
 }
 
-tasks.withType(JavaCompile) {
-  options.getGeneratedSourceOutputDirectory().set(generated)
-}
+compileJava.dependsOn('clean')

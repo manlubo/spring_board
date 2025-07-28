@@ -5,8 +5,8 @@
     <h1>Guestbook Read Page</h1>
 
       <div class="form-group">
-        <label for="gno">gno</label>
-        <input type="text" class="form-control" name="gno" placeholder="gno" id="gno" th:value="${dto.gno}" readonly="readonly">
+        <label for="bno">bno</label>
+        <input type="text" class="form-control" name="bno" placeholder="bno" id="bno" th:value="${dto.bno}" readonly="readonly">
       </div>
     <div class="form-group">
         <label for="title">Title</label>
@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         <label>Writer</label>
-        <input type="text" class="form-control" name="writer" placeholder="Writer" th:value="${dto.writer}" readonly="readonly">
+        <input type="text" class="form-control" name="writer" placeholder="Writer" th:value="${dto.writerName}" readonly="readonly">
       </div>
     <div class="form-group">
         <label>regDate</label>
@@ -28,9 +28,81 @@
         <label>modDate</label>
         <input type="text" class="form-control" name="regDate" placeholder="regDate" th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}" readonly="readonly">
       </div>
-    <a th:href="@{/templates/board/modify(page = ${pageDto.page}, size = ${pageDto.size}, gno= ${dto.gno}, type=${pageDto.type}, keyword=${pageDto.keyword})}" class="btn btn-primary mt-3">modify</a>
-    <a th:href="@{/templates/board/list(page = ${pageDto.page}, size = ${pageDto.size}, type=${pageDto.type}, keyword=${pageDto.keyword})}" class="btn btn-primary mt-3">List</a>
+    <a th:href="@{/board/modify(page = ${requestDto.page}, size = ${requestDto.size}, bno= ${dto.bno}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="btn btn-primary mt-3">modify</a>
+    <a th:href="@{/board/list(page = ${requestDto.page}, size = ${requestDto.size}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="btn btn-primary mt-3">List</a>
 
   </th:block>
 </th:block>
+<script>
+  // 전역변수로 counter 0
+  // 로컬 처리함수, 어싱크함수
+  let counter = 0;
+  function callLocal(n, cb) {
+    const add = 10 ** n;
+    counter += add;
+    console.log(`[local] 10^${n} = ${add} -> counter : ${counter}`);
+    if(cb) cb();
+  }
+  function callAsync(n, cb) {
+    const add = 10 ** n;
+    const delay = Math.floor(Math.random() * 1000); // 0 ~ 999
+    setTimeout(_ => {
+      counter += add;
+      console.log(`[local] 10^${n} = ${add} -> counter : ${counter}, delay: ${delay}ms`);
+      if(cb) cb();
+    }, delay)
+  }
+
+  callAsync(0, _ => {
+    callAsync(1, _ => {
+      callAsync(2, _ => {
+        callAsync(3, _ => {
+          callAsync(4, _ => {
+            callLocal(5, _ => {
+              callLocal(6, _ => {
+                callLocal(7, _ => {
+                  callLocal(8, _ => {
+                    callLocal(9, _ => {
+                      console.log("마지막입니다.")
+                    })
+                  })
+                })
+              })
+            })
+          })
+        });
+      });
+    });
+  });
+
+  // $.ajax({
+  //   success: (data) => {
+  //     $.ajax({
+  //       success: (data) => {
+  //
+  //       }
+  //     })
+  //   }
+  // })
+
+  // $.ajax({
+  //   success: (data) => {},
+  //   error: (data) => {},
+  //   finally: (data) => {}
+  // })
+  // .done((data) => {
+  //
+  // })
+  // .fail(error => {
+  //
+  // })
+  // .always((data) => {
+  //
+  // })
+  // .done((data) => {
+  //
+  // })
+
+
+</script>
 </html>

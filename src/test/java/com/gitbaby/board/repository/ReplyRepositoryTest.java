@@ -1,8 +1,7 @@
 package com.gitbaby.board.repository;
 
-import com.gitbaby.board.entity.Board;
-import com.gitbaby.board.entity.Member;
-import com.gitbaby.board.entity.Reply;
+import com.gitbaby.board.domain.entity.Board;
+import com.gitbaby.board.domain.entity.Reply;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -53,4 +51,14 @@ public class ReplyRepositoryTest {
     log.info(reply.getBoard().getWriter());
   }
 
+  @Test
+  @DisplayName("게시글 번호로 리뷰 가져오기")
+  public void testFindByBoard_bnoOrderByRnoDesc() {
+    repository.findByBoard_bnoOrderByRnoDesc(115L).forEach(log::info);
+  }
+  @Test
+  @DisplayName("게시글로 리뷰 가져오기")
+  public void testFindByBoard() {
+    repository.findByBoard(Board.builder().bno(115L).build()).forEach(log::info);
+  }
 }
