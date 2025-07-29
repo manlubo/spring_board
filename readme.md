@@ -12,3 +12,8 @@
 - `Sort` 객체를 기반으로 `tuple.orderBy()` 처리 구조 확인 (`o -> tuple.orderBy(o)` 와 `tuple::orderBy` 동일함)
 - MapStruct 매핑 경고 (`Unmapped target properties`) 원인 분석 및 `@Mapping`으로 해결
 - 콜백 지옥 구조 (`callAsync` 중첩) 분석 → Promise/async-await 리팩토링 필요성 파악
+
+
+## 2025-07-29
+- fetch 관련 정리
+- replyController, read 수정

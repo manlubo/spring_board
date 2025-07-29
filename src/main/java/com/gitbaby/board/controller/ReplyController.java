@@ -1,6 +1,7 @@
 package com.gitbaby.board.controller;
 
 import com.gitbaby.board.domain.dto.ReplyDTO;
+import com.gitbaby.board.domain.entity.Reply;
 import com.gitbaby.board.service.ReplyService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -24,4 +25,26 @@ public class ReplyController {
     return ResponseEntity.ok(replyService.getList(bno));
   }
 
+  @PostMapping()
+  public ResponseEntity<?> post(@RequestBody ReplyDTO dto) {
+
+    return ResponseEntity.ok(replyService.register(dto));
+  }
+
+  @DeleteMapping("{rno}")
+  public ResponseEntity<?> delete(@PathVariable("rno") Long rno) {
+    replyService.delete(rno);
+    return ResponseEntity.ok(rno);
+  }
+
+  @GetMapping("{rno}")
+  public ResponseEntity<?> getReply(@PathVariable("rno") Long rno) {
+    return ResponseEntity.ok(replyService.get(rno));
+  }
+
+  @PutMapping("{rno}")
+  public ResponseEntity<?> Modify(@RequestBody ReplyDTO dto) {
+    replyService.modify(dto);
+    return ResponseEntity.ok(dto.getRno());
+  }
 }
