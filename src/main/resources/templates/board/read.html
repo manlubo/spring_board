@@ -124,8 +124,8 @@
         document.querySelectorAll(".modal-body input[type=text]").forEach(i => i.value = '');
 
         [...document.querySelectorAll('.modal-footer button')]
-            .filter(b => {b.classList.add('d-none'); return b.matches('.replyClose, .replyModify, .replyRemove');})
-            .forEach(b => b.classList.remove('d-none'));
+            .filter(b => {b.classList.remove('d-none'); return b.matches('.replySave');})
+            .forEach(b => b.classList.add('d-none'));
         fetch(`/replies/${rno}`)
             .then(resp => resp.json())
             .then(r => {
@@ -137,7 +137,7 @@
       }
     })
 
-
+    // 댓글 등록 메서드
     async function postReply(url, data) {
       await fetch(url, {
         method: 'POST',
@@ -154,6 +154,9 @@
 
     // 수정처리
     document.querySelector('.replyModify').addEventListener('click', _ => {
+      if(!confirm("수정하시겠습니까?")){
+        return false;
+      }
       const reply = {bno}
       document.querySelectorAll(".modal-body input").forEach(i => reply[i.name] = i.value);
       modifyReply(reply);
@@ -176,6 +179,9 @@
 
     // 삭제처리
     document.querySelector('.replyRemove').addEventListener('click', _ => {
+      if(!confirm("삭제하시겠습니까?")){
+        return false;
+      }
       const rno = document.querySelector('input[name=rno]').value;
       deleteReply(rno);
     })
@@ -199,26 +205,6 @@
       fetch(`../replies/board/${bno}`)
           .then(resp => resp.json())
           .then(body =>
-          // {
-          //   for (let i of body) {
-          //     console.log(i);
-          //     const rno = i.rno;
-          //     const text = i.text;
-          //     const replyer = i.replyer;
-          //     const regdate = dayjs(i.regDate, dayForm).fromNow();
-          //
-          //     str += `<li class="list-group-item">
-          //       <div>댓글 번호 : ${rno}</div>
-          //       <div>${text}</div>
-          //       <div class="d-flex justify-content-between">
-          //         <p>${replyer}</p>
-          //         <p>${regdate}</p>
-          //       </div>
-          //     </li>`
-          //
-          //   }
-          //   listGroup.innerHTML = str;
-          // }
             {
               document.querySelector(".replyCount").innerHTML = "Reply Count " + body.length;
               listGroup.innerHTML = body.map(r => {
